@@ -34,11 +34,16 @@ export const getChapterJSON = async (url: string): Promise<IChapter> => {
 };
 
 export const getChapterPages = async ({
+  mangaName,
   FriendlyChapterNumber,
   Identification,
 }: IChapterContentProps) => {
   if (!FriendlyChapterNumber)
+    throw new Error("Provide the mangaName parameter");
+
+  if (!FriendlyChapterNumber)
     throw new Error("Provide the FriendlyChapterNumber parameter");
+
   // eslint-disable-next-line antfu/if-newline
   if (!Identification) throw new Error("Provide the Identification parameter");
 
@@ -61,7 +66,7 @@ export const getChapterPages = async ({
               const $el = $(element);
               const pageId = $el.attr("value");
               const page = $el.text();
-              const url = `https://pack-yak.intomanga.com/images/manga/Kimetsu-no-Yaiba/chapter/${FriendlyChapterNumber}/page/${page}/${pageId}`;
+              const url = `https://pack-yak.intomanga.com/images/manga/${mangaName}/chapter/${FriendlyChapterNumber}/page/${page}/${pageId}`;
               resolve({ pageId: pageId || null, page, url });
             } catch (error) {
               reject(error);
@@ -75,14 +80,14 @@ export const getChapterPages = async ({
 };
 
 // (async () => {
-//   // const pages = await getChapterPages({
-//   //   FriendlyChapterNumber: "02",
-//   //   Identification: "e3484db3-8a82-452a-ab82-1232cc747db1",
-//   // });
-//   // pages.map((p) => console.log(p));
+//   const pages = await getChapterPages({
+//     mangaName: "Kimetsu-no-Yaiba",
+//     FriendlyChapterNumber: "01",
+//     Identification: "41a7ef61-a911-428d-ba28-f53e2bc6c44f",
+//   });
+//   pages.map((p) => console.log(p));
 //   // const chapter = await getChapterJSON(
 //   //   "https://inmanga.com/ver/manga/Kimetsu-no-Yaiba/78352626-0e2c-4b10-9610-28abf57c6881"
 //   // );
-
 //   // console.log(chapter[0]);
 // })();

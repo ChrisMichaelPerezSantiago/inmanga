@@ -17,6 +17,7 @@ export interface IChapter {
 }
 
 export interface IChapterContentProps {
+  mangaName: string;
   FriendlyChapterNumber: string;
   Identification: string;
 }
