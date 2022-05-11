@@ -1,4 +1,4 @@
-# ✓ INMANGA (PoC)
+# ✓ INMANGA (PoC) / Manga Scraper
 
 > [inmanga](https://inmanga.com/) content in spanish
 
