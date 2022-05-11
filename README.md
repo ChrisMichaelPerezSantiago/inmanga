@@ -101,7 +101,7 @@ const mangas = await getMostViewedMangas();
 
 ```json
 {
-  "mangaName": "Shingeki no Kyojin",
+  "mangaName": "Shingeki-no-Kyojin",
   "chapter": [
     {
       "PagesCount": 55,
