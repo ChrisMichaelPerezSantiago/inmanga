@@ -43,12 +43,13 @@ const chapter = await getChapterJSON(
 
 </details>
 
-## `getChapterPages({FriendlyChapterNumber: string, Identification: string})`
+## `getChapterPages({mangaName: string, FriendlyChapterNumber: string, Identification: string})`
 
 List of **images as url** representing the page.
 
 ```ts
 const pages = await getChapterPages({
+  mangaName: "Kimetsu-no-Yaiba",
   FriendlyChapterNumber: "01",
   Identification: "41a7ef61-a911-428d-ba28-f53e2bc6c44f",
 });
