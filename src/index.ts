@@ -101,12 +101,13 @@ export const getMostViewedMangas = async (): Promise<
               const $el = $(element);
               const url = `https://inmanga.com${$el.attr("href")}`;
               const poster = $el.find("div.media-box img").attr("src");
-              const mangaName = $el
-                .find(
-                  "div.media-box div.media-box-body strong.media-box-heading"
-                )
-                .text()
-                .trim();
+              // const mangaName = $el
+              //   .find(
+              //     "div.media-box div.media-box-body strong.media-box-heading"
+              //   )
+              //   .text()
+              //   .trim();
+              const mangaName = url.split("/").filter(Boolean)[4];
               const views = $el
                 .find("div.media-box div.media-box-body span.pull-right")
                 .text()
