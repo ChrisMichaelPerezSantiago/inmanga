@@ -90,6 +90,42 @@ const pages = await getChapterPages({
 
 </details>
 
+## `getMostViewedMangas()`
+
+```ts
+const mangas = await getMostViewedMangas();
+```
+
+<details>
+<summary>Manga JSON</summary>
+
+```json
+{
+  "mangaName": "Shingeki no Kyojin",
+  "chapter": [
+    {
+      "PagesCount": 55,
+      "Watched": false,
+      "MangaIdentification": "",
+      "MangaName": "",
+      "FriendlyMangaName": "",
+      "Id": 22108,
+      "MangaId": 116,
+      "Number": 1,
+      "RegistrationDate": "2019-05-01T00:00:00",
+      "Description": "",
+      "Pages": [],
+      "Identification": "41a7ef61-a911-428d-ba28-f53e2bc6c44f",
+      "FeaturedChapter": false,
+      "FriendlyChapterNumber": "01",
+      "FriendlyChapterNumberUrl": "1"
+    } // more ...
+  ]
+}
+```
+
+</details>
+
 ## **:handshake: Contributing**
 
 - Fork it!

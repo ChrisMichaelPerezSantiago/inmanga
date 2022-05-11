@@ -27,3 +27,15 @@ export interface IChapterPages {
   page: string;
   url: string;
 }
+
+export interface IMostViewedMangas {
+  mangaName: string;
+  url: string;
+  poster: string | null;
+  views: string;
+}
+
+export interface IMostViewedMangasRoot {
+  mangaName: string;
+  chapter: IChapter;
+}

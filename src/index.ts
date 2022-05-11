@@ -1,11 +1,14 @@
 import _ from "lodash";
 import cheerio from "cheerio";
+import { PromisePool } from "@supercharge/promise-pool";
 import request from "./request";
 import Utils from "./Utils";
 import type {
   IChapter,
   IChapterContentProps,
   IChapterPages,
+  IMostViewedMangas,
+  IMostViewedMangasRoot,
 } from "./interfaces";
 
 const utils = new Utils();
@@ -77,6 +80,59 @@ export const getChapterPages = async ({
   );
 
   return pages;
+};
+
+export const getMostViewedMangas = async (): Promise<
+  IMostViewedMangasRoot[]
+> => {
+  const response = await request({
+    method: "get",
+    url: "https://inmanga.com/manga/getMostViewedMangas",
+  });
+
+  const $ = load(response);
+
+  const data: IMostViewedMangas[] = await Promise.all(
+    $("a.list-group-item")
+      .map(
+        (_, element) =>
+          new Promise<IMostViewedMangas>((resolve, reject) => {
+            try {
+              const $el = $(element);
+              const url = `https://inmanga.com${$el.attr("href")}`;
+              const poster = $el.find("div.media-box img").attr("src");
+              const mangaName = $el
+                .find(
+                  "div.media-box div.media-box-body strong.media-box-heading"
+                )
+                .text()
+                .trim();
+              const views = $el
+                .find("div.media-box div.media-box-body span.pull-right")
+                .text()
+                .trim();
+
+              resolve({ mangaName, url, poster: poster || null, views });
+            } catch (error) {
+              reject(error);
+            }
+          })
+      )
+      .get()
+  );
+
+  const { results } = await PromisePool.withConcurrency(10)
+    .for(data)
+    .process(async (prop: IMostViewedMangas) => {
+      const mangaName = prop.mangaName;
+
+      return {
+        mangaName,
+        chapter: await getChapterJSON(prop.url),
+      };
+    });
+
+  return results;
 };
 
 // (async () => {
